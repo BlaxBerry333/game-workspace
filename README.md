@@ -24,6 +24,7 @@ game-workspace/
 ├── .vscode/                    各游戏通用的设置和推荐插件
 ├── dev/                        不属于任何一个游戏的东西
 │   ├── ideas/                  随手记，不定规矩
+│   ├── playground/             技术试验，一个试验一个文件夹，各自能单独跑，不进 git
 │   └── scripts/                Makefile 调用的脚本
 ├── games/
 │   ├── .ignore                 让搜索工具看得到游戏文件
