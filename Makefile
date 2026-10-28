@@ -1,13 +1,13 @@
 # ============================================================
 # 设置
-# game= 只给根目录用，不传给游戏的 Makefile
+# game=、port= 只给根目录用，不传给游戏的 Makefile
 # ============================================================
 
-MAKEOVERRIDES := $(filter-out game=%,$(MAKEOVERRIDES))
-unexport game
+MAKEOVERRIDES := $(filter-out game=% port=%,$(MAKEOVERRIDES))
+unexport game port
 
 .DEFAULT_GOAL := help
-.PHONY: help status pull dev build test
+.PHONY: help status pull dev stop build test
 
 # ============================================================
 # help：列出命令和游戏
@@ -32,6 +32,12 @@ pull:
 # ============================================================
 dev:
 	@dev/scripts/make.run.sh $@ "$(game)"
+
+# ============================================================
+# stop：关掉占着端口的进程（port=<端口> 或 game=<游戏名>）
+# ============================================================
+stop:
+	@dev/scripts/make.stop.sh "$(port)" "$(game)"
 
 # ============================================================
 # build：打包（game=<游戏名>）

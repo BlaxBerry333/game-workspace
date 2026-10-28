@@ -44,6 +44,7 @@ game-workspace/
 | `make status`            | 看每个游戏有没有没提交、没 push 的              |
 | `make pull`              | 按清单 clone 或 pull 游戏                       |
 | `make dev game=<游戏名>` | 转发到游戏自己的 Makefile，`build`、`test` 同理 |
+| `make stop`              | 关掉进程：`port=<端口>` 或 `game=<游戏名>`      |
 
 ## 新开一个游戏
 
