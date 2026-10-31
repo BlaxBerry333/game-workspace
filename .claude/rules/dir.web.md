@@ -21,7 +21,9 @@ paths:
   - `.env.production`：正式部署用，进 git
   - `.env.local`：本地开发用，不进 git。`make setup`、`make dev` 时没有就从 `.env.example` 复制
   - `.env.example`：模板，列出所有变量和说明，值是本地开发用的，进 git
-  - 变量名全大写，单词用 `_` 连。带 `VITE_` 的会打进前端包，不放密钥；不带前缀的只在 `vite.config.ts` 里用
+  - 变量名全大写，单词用 `_` 连，前面加项目名和两个下划线：`<项目名>__<名字>`（比如 `TENEBRAE__BASE_PATH`），跟别的项目分开。这些只在 `vite.config.ts` 里用
+  - 要打进前端包的在最前面再加 `VITE_`：`VITE_<项目名>__<名字>`。谁都看得到，不放密钥
+  - 端口也是环境变量，用 `<项目名>__<用途>_PORT`（比如 `TENEBRAE__DEV_PORT`），`vite.config.ts` 里不写死端口号。游戏仓库的 `make ports` 也读这些（见 `dir.games.md`），文档里写端口号时注明是默认值
   - 代码里只在 `src/utils/helpers/env.ts` 读，写成 `ENV` 常量对象，缺了就报错；别的地方用 `ENV.<名字>`，不直接写 `import.meta.env.VITE_…`
 - 版本号写在 `package.json` 的 `version`。构建日期、commit 这类打包时才知道的，在 `scripts/build-info.ts` 里生成，`vite.config.ts` 用 `define` 写进代码，只在 `src/utils/helpers/version.ts` 读。版本跟环境无关，不放 `envs/`
 - `vite.config.ts` 只放设置。打包时要算的东西写在 `scripts/` 里，再导入进来；`scripts/` 放开发和打包用的脚本

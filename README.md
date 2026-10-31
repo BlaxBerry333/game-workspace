@@ -26,7 +26,7 @@ game-workspace/
 │   ├── .ignore                 让搜索工具看得到游戏文件
 │   ├── games.list              游戏清单，不进 git
 │   ├── games.list.example      清单的样例
-│   └── <game>/                 拉下来的游戏，各自是独立的 git 仓库
+│   └── <game>/                 clone 下来的游戏，各自是独立的 git 仓库
 ├── .gitattributes
 ├── .gitignore
 ├── Makefile
@@ -45,6 +45,7 @@ game-workspace/
 | `make pull`              | 更新已经 clone 下来的游戏                                      |
 | `make dev game=<游戏名>` | 转发到游戏自己的 Makefile，`build`、`test` 同理                |
 | `make stop`              | 关掉进程：`port=<端口>` 或 `game=<游戏名>`                     |
+| `make ports`             | 列出各游戏声明的端口和现在谁在用，查出重复的                   |
 
 ## 新开一个游戏
 

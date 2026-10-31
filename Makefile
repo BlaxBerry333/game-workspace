@@ -7,7 +7,7 @@ MAKEOVERRIDES := $(filter-out game=% port=%,$(MAKEOVERRIDES))
 unexport game port
 
 .DEFAULT_GOAL := help
-.PHONY: help add setup status pull dev stop build test
+.PHONY: help add setup status pull dev stop ports build test
 
 # ============================================================
 # help：列出命令和游戏
@@ -50,6 +50,12 @@ dev:
 # ============================================================
 stop:
 	@dev/scripts/make.stop.sh "$(port)" "$(game)"
+
+# ============================================================
+# ports：列出各游戏声明的端口和现在谁在用
+# ============================================================
+ports:
+	@dev/scripts/make.ports.sh
 
 # ============================================================
 # build：打包（game=<游戏名>）
