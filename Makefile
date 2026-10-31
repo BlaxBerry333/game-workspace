@@ -7,7 +7,7 @@ MAKEOVERRIDES := $(filter-out game=% port=%,$(MAKEOVERRIDES))
 unexport game port
 
 .DEFAULT_GOAL := help
-.PHONY: help status pull dev stop build test
+.PHONY: help add setup status pull dev stop build test
 
 # ============================================================
 # help：列出命令和游戏
@@ -16,13 +16,25 @@ help:
 	@dev/scripts/make.help.sh
 
 # ============================================================
+# add：一问一答登记一个游戏，可以接着 clone 并跑 setup
+# ============================================================
+add:
+	@dev/scripts/make.add.sh
+
+# ============================================================
+# setup：准备游戏清单，clone 清单里还没有的游戏，跑各游戏的 setup（game=<游戏名> 时只管这一个）
+# ============================================================
+setup:
+	@dev/scripts/make.setup.sh "$(game)"
+
+# ============================================================
 # status：列出每个游戏仓库的提交和 push 情况
 # ============================================================
 status:
 	@dev/scripts/make.status.sh
 
 # ============================================================
-# pull：按清单 clone 或 pull 游戏
+# pull：更新已经 clone 下来的游戏
 # ============================================================
 pull:
 	@dev/scripts/make.pull.sh

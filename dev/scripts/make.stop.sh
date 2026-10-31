@@ -38,7 +38,7 @@ if [ -n "$port" ]; then
 else
   if ! game.exists "$name"; then
     log.error "没有这个游戏：$name"
-    log.hint "现有游戏：$(game.list | tr '\n' ' ')"
+    game.hint
     exit 2
   fi
   dir=$(cd "$(game.dir "$name")" && pwd -P)
@@ -51,7 +51,7 @@ else
 fi
 
 if [ -z "${pids// /}" ]; then
-  printf '%s\n' "$(color.dim "没有进程在监听 $target")"
+  log.ok "没有进程在监听 $target"
   exit 0
 fi
 

@@ -62,7 +62,7 @@ for name in $(game.registered); do
   elif [ -z "$(game.url "$name")" ]; then
     note=$(color.red '✖ 清单里没写 git 地址')
   else
-    note=$(color.yellow '↓ 还没拉下来，用 make pull')
+    note=$(color.yellow '↓ 还没 clone，跑 make setup')
   fi
   printf '  %s %s  %s\n' "$label" "$(color.dim "$(printf '%-10s' '-')")" "$note"
 done

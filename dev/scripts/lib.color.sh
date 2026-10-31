@@ -1,29 +1,29 @@
 # ============================================================
 # 颜色
-# 不在终端里或设了 NO_COLOR 时不上色
+# 不在终端里或设了 NO_COLOR 时不上色。stdout、stderr 分开判断：
+# 写到 stderr 的地方先 local COLOR_TO_STDERR=1，里面调用的 color.* 就按 stderr 判断
 # ============================================================
 
-if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
-  COLOR_RESET=$'\033[0m'
-  COLOR_BOLD=$'\033[1m'
-  COLOR_DIM=$'\033[2m'
-  COLOR_RED=$'\033[31m'
-  COLOR_GREEN=$'\033[32m'
-  COLOR_YELLOW=$'\033[33m'
-  COLOR_CYAN=$'\033[36m'
-else
-  COLOR_RESET=''
-  COLOR_BOLD=''
-  COLOR_DIM=''
-  COLOR_RED=''
-  COLOR_GREEN=''
-  COLOR_YELLOW=''
-  COLOR_CYAN=''
+COLOR_STDOUT=0
+COLOR_STDERR=0
+if [ -z "${NO_COLOR:-}" ]; then
+  if [ -t 1 ]; then COLOR_STDOUT=1; fi
+  if [ -t 2 ]; then COLOR_STDERR=1; fi
 fi
 
-color.bold()   { printf '%s%s%s' "$COLOR_BOLD" "$1" "$COLOR_RESET"; }
-color.dim()    { printf '%s%s%s' "$COLOR_DIM" "$1" "$COLOR_RESET"; }
-color.red()    { printf '%s%s%s' "$COLOR_RED" "$1" "$COLOR_RESET"; }
-color.green()  { printf '%s%s%s' "$COLOR_GREEN" "$1" "$COLOR_RESET"; }
-color.yellow() { printf '%s%s%s' "$COLOR_YELLOW" "$1" "$COLOR_RESET"; }
-color.cyan()   { printf '%s%s%s' "$COLOR_CYAN" "$1" "$COLOR_RESET"; }
+color.wrap() {
+  local enabled=$COLOR_STDOUT
+  if [ "${COLOR_TO_STDERR:-0}" = 1 ]; then enabled=$COLOR_STDERR; fi
+  if [ "$enabled" = 1 ]; then
+    printf '\033[%sm%s\033[0m' "$1" "$2"
+  else
+    printf '%s' "$2"
+  fi
+}
+
+color.bold()   { color.wrap 1 "$1"; }
+color.dim()    { color.wrap 2 "$1"; }
+color.red()    { color.wrap 31 "$1"; }
+color.green()  { color.wrap 32 "$1"; }
+color.yellow() { color.wrap 33 "$1"; }
+color.cyan()   { color.wrap 36 "$1"; }

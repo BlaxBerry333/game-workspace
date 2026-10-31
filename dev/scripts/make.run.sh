@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # ============================================================
 # make dev / build / test
+# 工作区的 make setup game=<游戏名> 也转到这里
 # ============================================================
 set -euo pipefail
 
@@ -14,20 +15,20 @@ name=${2:-}
 
 if [ -z "$name" ]; then
   log.error "要指定游戏：make $target game=<游戏名>"
-  log.hint "现有游戏：$(game.list | tr '\n' ' ')"
+  game.hint
   exit 2
 fi
 
 if ! game.exists "$name"; then
   log.error "没有这个游戏：$name"
-  log.hint "现有游戏：$(game.list | tr '\n' ' ')"
+  game.hint
   exit 2
 fi
 
 dir=$(game.dir "$name")
 if [ ! -f "$dir/Makefile" ]; then
   log.error "games/$name 里没有 Makefile"
-  log.hint "现有游戏：$(game.list | tr '\n' ' ')"
+  game.hint
   exit 2
 fi
 
