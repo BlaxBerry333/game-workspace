@@ -1,12 +1,11 @@
 ---
 paths:
-  - "games/*/web/**"
-  - "dev/playground/**"
+  - "{games/*/apps/web,dev/playground}/**"
 ---
 
 # 画面适配
 
-项目的 README 跟这里冲突时先问我。
+项目的 README 和它链接的文档跟这里冲突时先问我。
 
 ## 要支持的范围
 

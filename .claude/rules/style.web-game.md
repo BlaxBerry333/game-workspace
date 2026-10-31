@@ -1,12 +1,12 @@
 ---
 paths:
-  - "games/*/web/**"
+  - "games/*/{apps/web,assets}/**"
   - "dev/playground/**"
 ---
 
 # web 游戏
 
-项目的 README 跟这里冲突时先问我。画面适配见 `style.web-screen.md`。
+项目的 README 和它链接的文档跟这里冲突时先问我。画面适配见 `style.web-screen.md`。
 
 ## 结构
 
@@ -28,8 +28,7 @@ paths:
 
 ## 素材
 
-- 放在 `public/assets/<类别>/`：`models/`、`environments/`、`textures/<名字>/`，2D 的图放 `images/`。文件名用小写加连字符
-- 只用 CC0 或明确允许商用的素材，每加一个都在 `public/assets/CREDITS.md` 记上来源和许可
+- 放哪、命名、许可、怎么加载见 `dir.web.md`
 - 模型用 GLB。颜色贴图标 sRGB，法线、粗糙度这类数据贴图保持线性
 - 换角色模型时，用游戏里实测脚着地时的滑动量来定走、跑速度，不靠目测
 

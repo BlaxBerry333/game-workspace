@@ -11,3 +11,6 @@ polyhaven
 puresky
 quaternius
 tenebrae
+vite
+vitest
+

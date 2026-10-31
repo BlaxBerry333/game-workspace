@@ -1,14 +1,12 @@
 ---
 paths:
-  - "games/*/**/*.tsx"
-  - "dev/playground/**/*.tsx"
-  - "games/*/**/components/**"
-  - "dev/playground/**/components/**"
+  - "{games/*,dev/playground}/**/*.tsx"
+  - "{games/*,dev/playground}/**/{components,views,pages}/**"
 ---
 
 # React
 
-项目的 README 跟这里冲突时先问我。
+项目的 README 和它链接的文档跟这里冲突时先问我。
 
 ## 组件
 
@@ -25,31 +23,37 @@ paths:
 - 对象、数组的默认值提到组件外面写成常量，不写 `items = []`
 - 回调 prop：`on` + 对象 + 动作，比如 `onItemSelect`，不写 `onSelect`
 - 处理函数：`handle` + 对象 + 动作，比如 `handleItemSelect`
-- `base` 里包装原生元素的组件，保留原生的 `onClick`、`onChange`
+- `ui/components/` 里包装原生元素的组件，保留原生的 `onClick`、`onChange`
 
 ## 目录
 
+组件放三个地方，src 整体的结构见 `dir.web.md`：
+
+| 位置 | 放什么 |
+|---|---|
+| `ui/components/` | 基础组件，不含游戏逻辑 |
+| `features/<功能>/components/` | 功能组件，可以用 `ui/components/` |
+| `views/`（有路由时 `pages/`） | 画面，把功能组件拼起来 |
+
+每个组件一个文件夹：
+
 ```
-src/components/
-├── base/                       基础组件，不含游戏逻辑
-│   └── Menu/
-│       ├── index.ts            唯一出口
-│       ├── Menu.tsx
-│       ├── Menu.types.ts
-│       ├── Menu.constants.ts
-│       ├── Menu.hooks.ts
-│       ├── Menu.helpers.ts     纯函数，不碰 React
-│       ├── Menu.module.scss
-│       └── MenuItem/           子组件，结构同上
-└── features/                   功能组件，可以用 base
+Menu/
+├── index.ts                    唯一出口
+├── Menu.tsx
+├── Menu.types.ts
+├── Menu.constants.ts
+├── Menu.hooks.ts
+├── Menu.helpers.ts             纯函数，不碰 React
+├── Menu.module.scss
+└── MenuItem/                   子组件，结构同上
 ```
 
-- 每个组件一个文件夹，配套文件需要时才建
+- 配套文件需要时才建
 - `组件名.tsx` 只导出组件，hooks 放 `.hooks.ts`
 - 子组件的文件夹放在父组件文件夹里，外面只能通过父组件用
-- 外面只能导入到 `base/<组件>`、`features/<组件>` 这一层，不能往里导入
-- 组件文件夹里面（包括子组件）互相导入用 `@/` 完整路径，不算往里导入
-- `base` 不能导入 `features`
+- 外面只能导入到组件文件夹这一层，不能往里导入
+- 父组件和子组件之间互相导入用 `@/` 完整路径，不算往里导入；同一个文件夹里照常用 `./`
 - 不建汇总整个 `components/` 的 `index.ts`
 
 ## state
@@ -68,10 +72,10 @@ src/components/
 
 ## 懒加载
 
-- 在 `features` 这一层做：
+- 在 `views` 或 `features` 这一层做：
 
   ```ts
   const Settings = lazy(() =>
-    import('@/components/features/Settings').then((m) => ({ default: m.Settings })),
+    import('@/views/Settings').then((m) => ({ default: m.Settings })),
   )
   ```

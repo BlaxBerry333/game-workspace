@@ -1,14 +1,11 @@
 ---
 paths:
-  - "games/*/**/*.ts"
-  - "games/*/**/*.tsx"
-  - "dev/playground/**/*.ts"
-  - "dev/playground/**/*.tsx"
+  - "{games/*,dev/playground}/**/*.{ts,tsx}"
 ---
 
 # TypeScript
 
-项目的 README 跟这里冲突时先问我。
+项目的 README 和它链接的文档跟这里冲突时先问我。
 
 ## 命名
 
@@ -30,7 +27,7 @@ paths:
 - 文件超过 200 行，先停下来看能不能拆；超过 300 行必须拆。import 和类型也算
 - 普通函数超过 50 行，拆成几个小函数，名字说明各自做什么
 - 只放数据、没有逻辑的文件不限行数，比如常量、文案、键位表
-- 不建 `utils.ts`、`common.ts`、`misc.ts` 这种什么都往里放的文件，按用途起名，比如 `vec.ts`、`easing.ts`
+- 不建 `utils.ts`、`common.ts`、`misc.ts` 这种什么都往里放的文件，按用途起名，比如 `vec.ts`、`easing.ts`。`utils/` 目录可以有，里面照 `dir.web.md` 分 `helpers/`、`hooks/`
 - 加新功能时先想清楚放在哪个文件，不因为现有文件里有相关代码就往里追加
 - 项目里用 oxlint 的 `max-lines` 把 300 行设成报错
 
@@ -52,13 +49,11 @@ paths:
 ## import
 
 - 分三组，组之间空一行：`react` / `react-dom`、第三方、自己的
-- 自己的那组按 `@/`、`./`、样式的顺序排
+- 自己的那组按 `@/`、`@data/`、`@assets/`、`./`、样式的顺序排
 - 只导入类型的用 `import type`
 - 函数分组和导出很多东西的库用 `import * as`，别名用文件名转大驼峰：`Menu.helpers.ts` → `MenuHelpers`，`vec.ts` → `Vec`，`three` → `THREE`
 - React、组件、类型用解构
-- 跨目录用 `@/`，同一个文件夹里用 `./`，不准用 `../`
-- `@/` 只指向 `src/`，不加别的别名
-- `@/` 在 tsconfig 的 `paths` 里定义，Vite 读 tsconfig 的设置，不在 `vite.config` 里另写一份 alias
+- 跨目录用 `@/`，同一个文件夹里用 `./`，不准用 `../`。别名见 `dir.web.md`
 
 ## 不用
 

@@ -1,23 +1,11 @@
 ---
 paths:
-  - "Makefile"
+  - "{Makefile,.gitignore,.gitattributes}"
   - "dev/scripts/**"
-  - ".gitignore"
-  - ".gitattributes"
-  - "games/.ignore"
-  - "games/*.example"
-  - "games/*/**/Makefile"
-  - "games/*/**/*.sh"
-  - "games/*/**/.gitignore"
-  - "games/*/**/.gitattributes"
-  - "dev/playground/**/Makefile"
-  - "dev/playground/**/*.sh"
-  - "dev/playground/**/.gitignore"
-  - "dev/playground/**/.gitattributes"
-  - "games/*/**/*.ts"
-  - "games/*/**/*.tsx"
-  - "dev/playground/**/*.ts"
-  - "dev/playground/**/*.tsx"
+  - "games/{.ignore,*.example}"
+  - "{games/*,dev/playground}/**/{Makefile,.gitignore,.gitattributes,.prettierignore,prettierignore}"
+  - "{games/*,dev/playground}/**/envs/.env*"
+  - "{games/*,dev/playground}/**/*.{sh,ts,tsx,js,scss}"
 ---
 
 # 注释
@@ -36,8 +24,13 @@ paths:
   # ============================================================
   ```
 
-## TS 注释
+## TS、JS 注释
 
 - 需要说明时，导出的函数、类、类型、类的公开方法、带单位的字段用 `/** */`，编辑器悬停时能看到。不是每个都要写
 - 函数体里用 `//`，写在要说明的那行上面
 - 不用分隔框分段，一个文件一组，文件本身就是分段
+
+## SCSS 注释
+
+- 用 `/* */`，写在要说明的规则或变量上面。多行时每行开头写 ` * `
+- 不用分隔框分段
